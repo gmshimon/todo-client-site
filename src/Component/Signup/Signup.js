@@ -1,13 +1,48 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
+import {
+  useCreateUserWithEmailAndPassword,
+  useSendEmailVerification,
+  useUpdateProfile,
+  useSignInWithFacebook,
+} from "react-firebase-hooks/auth";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import auth from "../../firebase.init";
 import "./Signup.css";
+
 const Signup = () => {
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
+  const [updateProfile, updating, err] = useUpdateProfile(auth);
+  const navigate = useNavigate();
   const name = useRef("");
   const email = useRef("");
   const password = useRef("");
-  const matric = useRef("");
-  const phoneNumber = useRef("");
+
+  //use Sate
+  const [newUser, setUser] = useState();
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    const nameValue = name.current.value;
+    const emailValue = email.current.value;
+    const passwordValue = password.current.value;
+
+    const createUser = {
+      name: nameValue,
+      email: emailValue.toLocaleLowerCase(),
+    };
+    setUser(createUser);
+    console.log(nameValue, emailValue, passwordValue);
+    await createUserWithEmailAndPassword(emailValue, passwordValue);
+    await updateProfile({ displayName: nameValue });
+    // navigate(from, {replace:true});
+  };
+
+  if (newUser) {
+    navigate("/todo");
+  }
+
   return (
     <div className="mt-5">
       <h1
@@ -38,14 +73,11 @@ const Signup = () => {
           </small>
         </div>
       </div>
-      <form
-        className="w-100 pb-4"
-        // onSubmit={handleSignUp}
-      >
+      <form className="w-100 pb-4" onSubmit={handleSignUp}>
         <div className="login-container">
           <div className="did-floating-label-content">
             <input
-              // ref={email}
+              ref={name}
               className="did-floating-input"
               type="text"
               placeholder=" "
