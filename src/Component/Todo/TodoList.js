@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import auth from "../../firebase.init";
+import Head from '../Head/Head';
 
 const TodoList = () => {
   const [task, setTask] = useState('');
@@ -11,6 +13,8 @@ const TodoList = () => {
 
   return (
     <div>
+      <Head/>
+      <div style={{marginTop:'80px'}} >
       <input
         type="text"
         placeholder="Enter a task"
@@ -23,6 +27,7 @@ const TodoList = () => {
           <li key={index}>{task}</li>
         ))}
       </ul>
+      </div>
     </div>
   );
 };

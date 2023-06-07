@@ -107,12 +107,14 @@ const Login = () => {
       </form>
       <div className="d-flex justify-content-center">
         <p className="text-danger fs-5" style={{marginTop:'-16px'}}>
-                  {(error && error.message.split("/")[1].split(")")[0])}
+                  {(error && error?.split("/")[1].split(")")[0])}
                 </p>
+      </div>
+        <div className="d-flex justify-content-center">
         <p style={{ marginTop: "-16px" }} className="fs-6 text-white">
           Already have an Account? <Link to="/">Signup</Link>
         </p>
-      </div>
+        </div>
     </div>
   );
 };
