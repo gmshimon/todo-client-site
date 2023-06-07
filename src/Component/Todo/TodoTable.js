@@ -6,9 +6,30 @@ const TodoTable = ({todo,index}) => {
         console.log(id);
         fetch(`http://localhost:5000/api/v1/todos/${id}`)
         .then(res=>res.json())
-        .then(data=>console.log(data))
+        .then(data=>alert("Todo Deleted Successfully"))
     }
 
+    const handleUpdateTodo = id =>{
+        console.log(id);
+
+        const newTodo = {
+            name: todo?.name,
+            date: todo?.date,
+            category: todo?.category,
+            time: todo?.time,
+            status:"Done"
+        };
+
+        fetch(`http://localhost:5000/api/v1/todos/${id}`,{
+            method:"PUT",
+            headers:{
+                'content-type':'application/json',
+            },
+            body:JSON.stringify(newTodo)
+        })
+        .then(res=>res.json())
+        .then(data=>console.log(data))
+    }
     return (
         <>
       <tbody key={todo._id}>
@@ -30,7 +51,7 @@ const TodoTable = ({todo,index}) => {
             }
           </td>
           <td>
-          <Button variant="danger" onClick={()=>handleDelete(todo._id)}>Delete</Button>{' '}<Button variant="success">Done</Button>{' '}
+          <Button variant="danger" onClick={()=>handleDelete(todo._id)}>Delete</Button>{' '}<Button variant="success" onClick={()=>handleUpdateTodo(todo._id)}>Done</Button>{' '}
           </td>
         </tr>
       </tbody>
