@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginForm from './Component/LoginForm';
 import TodoList from './Component/TodoList';
 import { Route, Routes } from 'react-router-dom';
+import Signup from './Component/Signup/Signup';
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -18,7 +19,7 @@ const App = () => {
   return (
     <div>
        <Routes>
-        <Route path="/" element={<LoginForm />} />
+        <Route path="/" element={<Signup />} />
         <Route path="/todo" element={<TodoList />} />
       </Routes>
     </div>
