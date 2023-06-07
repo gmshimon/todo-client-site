@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import LoginForm from './Component/LoginForm';
+import TodoList from './Component/TodoList';
 
-function App() {
+const App = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const handleLogin = (username, password) => {
+    // Implement your login logic here
+    // For simplicity, let's just set loggedIn to true if the username and password are not empty
+    if (username && password) {
+      setLoggedIn(true);
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {loggedIn ? <TodoList /> : <LoginForm onLogin={handleLogin} />}
     </div>
   );
-}
+};
 
 export default App;
