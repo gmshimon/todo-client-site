@@ -16,8 +16,7 @@ const TodoList = () => {
     fetch("http://localhost:5000/api/v1/todos")
       .then((res) => res.json())
       .then((data) => setTodos(data.data));
-  }, []);
-  console.log(todos);
+  }, [todos]);
   const handleAddTodo = (e) => {
     e.preventDefault();
     const name = nameRef.current.value;
@@ -31,6 +30,7 @@ const TodoList = () => {
       date: date,
       category: category,
       time: time,
+      status:"Pending"
     };
     fetch("http://localhost:5000/api/v1/todos", {
       method: "POST",
