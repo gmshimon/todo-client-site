@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import LoginForm from './Component/LoginForm';
 import TodoList from './Component/TodoList';
+import { Route, Routes } from 'react-router-dom';
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -15,7 +16,10 @@ const App = () => {
 
   return (
     <div>
-      {loggedIn ? <TodoList /> : <LoginForm onLogin={handleLogin} />}
+       <Routes>
+        <Route path="/" element={<LoginForm />} />
+        <Route path="/todo" element={<TodoList />} />
+      </Routes>
     </div>
   );
 };
